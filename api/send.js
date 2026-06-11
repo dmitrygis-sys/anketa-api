@@ -1,6 +1,6 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -48,10 +48,9 @@ module.exports = async function handler(req, res) {
     }).join('');
 
     const html = `<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f5f2ed;font-family:Arial,sans-serif;">
-<div style="max-width:680px;margin:24px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,0.08);">
+<div style="max-width:680px;margin:24px auto;background:#fff;border-radius:12px;overflow:hidden;">
   <div style="background:linear-gradient(135deg,#4e7264,#7a9e8e);padding:28px 32px;">
-    <div style="font-size:24px;margin-bottom:8px;">🌸</div>
-    <div style="color:#fff;font-size:18px;font-weight:300;">Анкета качества — Отделение новорождённых</div>
+    <div style="color:#fff;font-size:18px;">🌸 Анкета качества — Отделение новорождённых</div>
     <div style="color:rgba(255,255,255,0.7);font-size:12px;margin-top:6px;">${date_time} · Анонимно</div>
   </div>
   <div style="padding:0 24px 24px;">
@@ -63,9 +62,6 @@ module.exports = async function handler(req, res) {
       </tr></thead>
       <tbody>${rows}</tbody>
     </table>
-  </div>
-  <div style="background:#faf7f2;padding:16px 32px;font-size:11px;color:#aaa;text-align:center;">
-    Отправлено автоматически · Отделение новорождённых
   </div>
 </div></body></html>`;
 
@@ -83,4 +79,4 @@ module.exports = async function handler(req, res) {
     console.error('SMTP error:', err.message);
     return res.status(500).json({ ok: false, error: err.message });
   }
-};
+}
